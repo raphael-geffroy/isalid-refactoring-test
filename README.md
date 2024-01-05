@@ -21,3 +21,5 @@ Upgrade php version to 8.3.
 Replace the deprecated "fzaninotto/faker" by "fakerphp/faker".
 Upgraded phpunit and updated config accordingly.
 Update the approval tests snapshots as the faker's seed did not survive the library change (I should have scrubbed these data in the first time)
+### 3.2 - Introduce autoloading
+Introduce autoloading thanks to composer and get rid of all the "require".
