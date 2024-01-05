@@ -15,7 +15,7 @@ Those tests are to be thrown away once the refactoring is done.
 (I had to use a fork branch of the official library because it was not compatible with PHP5.6)
 Once the code to refactor is covered enough we save the snapshot, and we are good to start refactoring.
 
-## 3 - Refactoring
+## 3 - Refactoring the project
 ### 3.1 - Upgrade PHP version and dependencies accordingly
 Upgrade php version to 8.3.
 Replace the deprecated "fzaninotto/faker" by "fakerphp/faker".
@@ -30,3 +30,7 @@ Introduce Service Container (and autowiring) thanks to "symfony/dependency-injec
 ### 3.5 - Correct POO encapsulation
 Update code to respect POO encapsulation principle thanks to readonly classes
 
+## 4 - Refactoring TemplateManager
+### 4.1 - Algorithmic improvements
+Update the algorithmic using up-to-date code (new features provided by PHP earlier versions).
+Simplify the logic and improve the readability.

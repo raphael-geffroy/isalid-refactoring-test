@@ -8,7 +8,6 @@ use App\Context\ApplicationContext;
 use App\Entity\Quote;
 use App\Entity\Template;
 use App\Repository\DestinationRepository;
-use App\Repository\QuoteRepository;
 use App\Repository\SiteRepository;
 use App\TemplateManager;
 use Faker\Factory;
@@ -16,7 +15,6 @@ use PHPUnit\Framework\TestCase;
 
 class TemplateManagerTest extends TestCase
 {
-    private QuoteRepository $quoteRepository;
     private SiteRepository $siteRepository;
     private DestinationRepository $destinationRepository;
     private ApplicationContext $applicationContext;
@@ -26,7 +24,6 @@ class TemplateManagerTest extends TestCase
      */
     public function setUp(): void
     {
-        $this->quoteRepository = new QuoteRepository();
         $this->siteRepository = new SiteRepository();
         $this->destinationRepository = new DestinationRepository();
         $this->applicationContext = new ApplicationContext();
@@ -65,7 +62,6 @@ Bien cordialement,
 L'équipe de Shipper
 ");
         $templateManager = new TemplateManager(
-            $this->quoteRepository,
             $this->siteRepository,
             $this->destinationRepository,
             $this->applicationContext
