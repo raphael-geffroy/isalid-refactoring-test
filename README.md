@@ -14,3 +14,10 @@ behavioral changes while refactoring procedural legacy code which is not tested 
 Those tests are to be thrown away once the refactoring is done.
 (I had to use a fork branch of the official library because it was not compatible with PHP5.6)
 Once the code to refactor is covered enough we save the snapshot, and we are good to start refactoring.
+
+## 3 - Refactoring
+### 3.1 - Upgrade PHP version and dependencies accordingly
+Upgrade php version to 8.3.
+Replace the deprecated "fzaninotto/faker" by "fakerphp/faker".
+Upgraded phpunit and updated config accordingly.
+Update the approval tests snapshots as the faker's seed did not survive the library change (I should have scrubbed these data in the first time)

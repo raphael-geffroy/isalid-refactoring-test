@@ -2,18 +2,18 @@
 blabla [quote:destination_name]
 blablabla [quote:destination_link]
 blablablabla [quote:summary_html]
-blablablablabla [quote:summary], 1, 1] => {"id": "5","subject": "Votre livraison à Jordan","content": "Bla FIRSTNAME_0
-blabla Jordan
-blablabla http://www.schuppe.org/unde-rerum-similique-molestias-quam-voluptatem-nam-sequi-sed.html/Jordan/quote/1
+blablablablabla [quote:summary], 1, 1] => {"id": "5","subject": "Votre livraison à Poland","content": "Bla FIRSTNAME_0
+blabla Poland
+blablabla http://brown.com/est-accusantium-eaque-unde-enim-id-id.html/Poland/quote/1
 blablablabla <p>1</p>
 blablablablabla 1"}
 [Bla [user:first_name]
 blabla [quote:destination_name]
 blablabla [quote:destination_link]
 blablablabla [quote:summary_html]
-blablablablabla [quote:summary], 1, ] => {"id": "5","subject": "Votre livraison à Jordan","content": "Bla FIRSTNAME_0
-blabla Jordan
-blablabla http://www.schuppe.org/unde-rerum-similique-molestias-quam-voluptatem-nam-sequi-sed.html/Jordan/quote/1
+blablablablabla [quote:summary], 1, ] => {"id": "5","subject": "Votre livraison à Poland","content": "Bla FIRSTNAME_0
+blabla Poland
+blablabla http://brown.com/est-accusantium-eaque-unde-enim-id-id.html/Poland/quote/1
 blablablabla <p>1</p>
 blablablablabla 1"}
 [Bla [user:first_name]

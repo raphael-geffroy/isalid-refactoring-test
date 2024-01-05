@@ -13,7 +13,7 @@ require_once __DIR__ . '/../src/Repository/QuoteRepository.php';
 require_once __DIR__ . '/../src/Repository/SiteRepository.php';
 require_once __DIR__ . '/../src/TemplateManager.php';
 
-class TemplateManagerApprovalTest extends PHPUnit_Framework_TestCase
+class TemplateManagerApprovalTest extends \PHPUnit\Framework\TestCase
 {
     const QUOTE_ID = 1;
     const QUOTE_DATE = '2023-01-01T08:00:00Z';
