@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace AppTest;
 
-use App\Context\ApplicationContext;
 use App\Entity\Quote;
 use App\Entity\Template;
 use App\Entity\User;
-use App\Repository\DestinationRepository;
-use App\Repository\SiteRepository;
+use App\Kernel;
 use App\TemplateManager;
 use App\ValueObject\TemplatedText;
 use ApprovalTests\CombinationApprovals;
@@ -35,18 +33,19 @@ blablablabla [quote:summary_html]
 blablablablabla [quote:summary]
 EOT;
 
-    private SiteRepository $siteRepository;
-    private DestinationRepository $destinationRepository;
-    private ApplicationContext $applicationContext;
+    private TemplateManager $templateManager;
 
     /**
      * Init the mocks
      */
     public function setUp(): void
     {
-        $this->siteRepository = new SiteRepository();
-        $this->destinationRepository = new DestinationRepository();
-        $this->applicationContext = new ApplicationContext();
+        $kernel = new Kernel();
+        $kernel->boot();
+        $container = $kernel->getContainer();
+        /** @var TemplateManager $templateManager */
+        $templateManager = $container->get(TemplateManager::class);
+        $this->templateManager = $templateManager;
     }
 
     public function test()
@@ -61,12 +60,6 @@ EOT;
 
     public function callTemplateManagerWithParams($content, $withQuote, $withUser)
     {
-        $templateManager = new TemplateManager(
-            $this->siteRepository,
-            $this->destinationRepository,
-            $this->applicationContext
-        );
-
         $context = [];
         if ($withQuote) {
             $quote = new Quote(
@@ -84,7 +77,7 @@ EOT;
 
         $template = new Template(self::TEMPLATE_ID, new TemplatedText(self::TEMPLATE_SUBJECT), new TemplatedText($content));
 
-        $result = $templateManager->getTemplateComputed($template, $context);
+        $result = $this->templateManager->getTemplateComputed($template, $context);
 
         /*
          * We need to scrub the result because when we do not provide a user

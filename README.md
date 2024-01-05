@@ -39,3 +39,8 @@ I tried to follow the sandwich pattern technique to refactor the service.
 It implies to put the shared states on the extremities of the method to highlight the immutable domain (the domain logic)
 and finally try to enrich our domain (Aggregates, Entities, ValueObjects and if needed Domain services).
 In that end I created a TemplatedText ValueObject to encapsulate the logic (contains and replace).
+### 4.3 - TemplateProcessor Abstraction
+I created a system easily extensible to handle placeholder replacements in a TemplatedText.
+You just have to create an implementation of the App\Service\TemplateProcessorInterface.
+The designed solution is a mix of Chain of Responsibility and Strategy patterns. You can find solutions like this one
+in the Symfony codebase for Transports (Notifier) and ChainEncoder (Serializer).

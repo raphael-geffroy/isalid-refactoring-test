@@ -4,86 +4,51 @@ declare(strict_types=1);
 
 namespace AppTest;
 
-use App\Context\ApplicationContext;
-use App\Entity\Quote;
 use App\Entity\Template;
-use App\Repository\DestinationRepository;
-use App\Repository\SiteRepository;
+use App\Service\TemplateProcessorInterface;
 use App\TemplateManager;
 use App\ValueObject\TemplatedText;
-use Faker\Factory;
 use PHPUnit\Framework\TestCase;
 
 class TemplateManagerTest extends TestCase
 {
-    private SiteRepository $siteRepository;
-    private DestinationRepository $destinationRepository;
-    private ApplicationContext $applicationContext;
-
-    /**
-     * Init the mocks
-     */
-    public function setUp(): void
-    {
-        $this->siteRepository = new SiteRepository();
-        $this->destinationRepository = new DestinationRepository();
-        $this->applicationContext = new ApplicationContext();
-    }
-
-    /**
-     * Closes the mocks
-     */
-    public function tearDown(): void
-    {
-    }
-
-    /**
-     * @test
-     */
     public function test()
     {
-        $faker = Factory::create();
+        $templateProcessorSpy = new class implements TemplateProcessorInterface {
+            /**
+             * @var array<array{text: TemplatedText, context: array<string, mixed>}>
+             */
+            private array $processorProcessCallsParams = [];
 
-        $destinationId                  = $faker->randomNumber();
-        $expectedDestination = $this->destinationRepository->getById($destinationId);
-        $expectedUser        = $this->applicationContext->getCurrentUser();
+            public function process(TemplatedText $text, array $context): void
+            {
+                $this->processorProcessCallsParams[] = [
+                    'text' => $text,
+                    'context' => $context
+                ];
+            }
 
-        $quote = new Quote($faker->randomNumber(), $faker->randomNumber(), $destinationId, $faker->date());
+            public function supports(TemplatedText $text, array $context): bool
+            {
+                return true;
+            }
 
-        $template = new Template(
-            1,
-            new TemplatedText('Votre livraison à [quote:destination_name]'),
-            new TemplatedText("
-Bonjour [user:first_name],
+            public function getProcessorProcessCallsParams(): array
+            {
+                return $this->processorProcessCallsParams;
+            }
+        };
 
-Merci de nous avoir contacté pour votre livraison à [quote:destination_name].
+        $templateManager = new TemplateManager($templateProcessorSpy);
 
-Bien cordialement,
+        $template = new Template(1, $a = new TemplatedText('A'), $b = new TemplatedText('B'));
 
-L'équipe de Shipper
-"));
-        $templateManager = new TemplateManager(
-            $this->siteRepository,
-            $this->destinationRepository,
-            $this->applicationContext
-        );
+        $templateManager->getTemplateComputed($template, $context = ['a' => 1]);
 
-        $message = $templateManager->getTemplateComputed(
-            $template,
-            [
-                'quote' => $quote
-            ]
-        );
+        $this->assertEquals([
+            ['text' => $a, 'context' => $context],
+            ['text' => $b, 'context' => $context],
+        ],$templateProcessorSpy->getProcessorProcessCallsParams());
 
-        $this->assertEquals('Votre livraison à ' . $expectedDestination->countryName, $message->subject);
-        $this->assertEquals("
-Bonjour " . $expectedUser->firstname . ",
-
-Merci de nous avoir contacté pour votre livraison à " . $expectedDestination->countryName . ".
-
-Bien cordialement,
-
-L'équipe de Shipper
-", $message->content);
     }
 }
