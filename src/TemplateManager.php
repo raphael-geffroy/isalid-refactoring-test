@@ -12,8 +12,17 @@ use App\Repository\DestinationRepository;
 use App\Repository\QuoteRepository;
 use App\Repository\SiteRepository;
 
-class TemplateManager
+readonly class TemplateManager
 {
+    public function __construct(
+        private QuoteRepository $quoteRepository,
+        private SiteRepository $siteRepository,
+        private DestinationRepository $destinationRepository,
+        private ApplicationContext $applicationContext,
+    )
+    {
+    }
+
     public function getTemplateComputed(Template $tpl, array $data)
     {
         if (!$tpl) {
@@ -29,18 +38,16 @@ class TemplateManager
 
     private function computeText($text, array $data)
     {
-        $APPLICATION_CONTEXT = ApplicationContext::getInstance();
-
         $quote = (isset($data['quote']) and $data['quote'] instanceof Quote) ? $data['quote'] : null;
 
         if ($quote)
         {
-            $_quoteFromRepository = QuoteRepository::getInstance()->getById($quote->id);
-            $usefulObject = SiteRepository::getInstance()->getById($quote->siteId);
-            $destinationOfQuote = DestinationRepository::getInstance()->getById($quote->destinationId);
+            $_quoteFromRepository = $this->quoteRepository->getById($quote->id);
+            $usefulObject = $this->siteRepository->getById($quote->siteId);
+            $destinationOfQuote = $this->destinationRepository->getById($quote->destinationId);
 
             if(strpos($text, '[quote:destination_link]') !== false){
-                $destination = DestinationRepository::getInstance()->getById($quote->destinationId);
+                $destination = $this->destinationRepository->getById($quote->destinationId);
             }
 
             $containsSummaryHtml = strpos($text, '[quote:summary_html]');
@@ -75,7 +82,7 @@ class TemplateManager
          * USER
          * [user:*]
          */
-        $_user  = (isset($data['user'])  and ($data['user']  instanceof User))  ? $data['user']  : $APPLICATION_CONTEXT->getCurrentUser();
+        $_user  = (isset($data['user'])  and ($data['user']  instanceof User))  ? $data['user']  : $this->applicationContext->getCurrentUser();
         if($_user) {
             (strpos($text, '[user:first_name]') !== false) and $text = str_replace('[user:first_name]'       , ucfirst(mb_strtolower($_user->firstname)), $text);
         }

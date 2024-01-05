@@ -23,3 +23,5 @@ Upgraded phpunit and updated config accordingly.
 Update the approval tests snapshots as the faker's seed did not survive the library change (I should have scrubbed these data in the first time)
 ### 3.2 - Introduce autoloading
 Introduce autoloading thanks to composer and get rid of all the "require".
+### 3.3 - Replace Singleton by DI
+Remove the singleton system to introduce Dependency injection

@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace AppTest;
 
+use App\Context\ApplicationContext;
 use App\Entity\Quote;
 use App\Entity\Template;
 use App\Entity\User;
+use App\Repository\DestinationRepository;
+use App\Repository\QuoteRepository;
+use App\Repository\SiteRepository;
 use App\TemplateManager;
 use ApprovalTests\CombinationApprovals;
 use DateTimeImmutable;
@@ -31,6 +35,22 @@ blablablabla [quote:summary_html]
 blablablablabla [quote:summary]
 EOT;
 
+    private QuoteRepository $quoteRepository;
+    private SiteRepository $siteRepository;
+    private DestinationRepository $destinationRepository;
+    private ApplicationContext $applicationContext;
+
+    /**
+     * Init the mocks
+     */
+    public function setUp(): void
+    {
+        $this->quoteRepository = new QuoteRepository();
+        $this->siteRepository = new SiteRepository();
+        $this->destinationRepository = new DestinationRepository();
+        $this->applicationContext = new ApplicationContext();
+    }
+
     public function test()
     {
         CombinationApprovals::verifyAllCombinations3(
@@ -43,7 +63,12 @@ EOT;
 
     public function callTemplateManagerWithParams($content, $withQuote, $withUser)
     {
-        $templateManager = new TemplateManager();
+        $templateManager = new TemplateManager(
+            $this->quoteRepository,
+            $this->siteRepository,
+            $this->destinationRepository,
+            $this->applicationContext
+        );
 
         $context = [];
         if ($withQuote) {

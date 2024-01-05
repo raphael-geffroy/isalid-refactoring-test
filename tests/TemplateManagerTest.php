@@ -9,16 +9,28 @@ use App\Context\ApplicationContext;
 use App\Entity\Quote;
 use App\Entity\Template;
 use App\Repository\DestinationRepository;
+use App\Repository\QuoteRepository;
+use App\Repository\SiteRepository;
 use App\TemplateManager;
+use Faker\Factory;
 use PHPUnit\Framework\TestCase;
 
 class TemplateManagerTest extends TestCase
 {
+    private QuoteRepository $quoteRepository;
+    private SiteRepository $siteRepository;
+    private DestinationRepository $destinationRepository;
+    private ApplicationContext $applicationContext;
+
     /**
      * Init the mocks
      */
     public function setUp(): void
     {
+        $this->quoteRepository = new QuoteRepository();
+        $this->siteRepository = new SiteRepository();
+        $this->destinationRepository = new DestinationRepository();
+        $this->applicationContext = new ApplicationContext();
     }
 
     /**
@@ -33,11 +45,11 @@ class TemplateManagerTest extends TestCase
      */
     public function test()
     {
-        $faker = \Faker\Factory::create();
+        $faker = Factory::create();
 
         $destinationId                  = $faker->randomNumber();
-        $expectedDestination = DestinationRepository::getInstance()->getById($destinationId);
-        $expectedUser        = ApplicationContext::getInstance()->getCurrentUser();
+        $expectedDestination = $this->destinationRepository->getById($destinationId);
+        $expectedUser        = $this->applicationContext->getCurrentUser();
 
         $quote = new Quote($faker->randomNumber(), $faker->randomNumber(), $destinationId, $faker->date());
 
@@ -53,7 +65,12 @@ Bien cordialement,
 
 L'équipe de Shipper
 ");
-        $templateManager = new TemplateManager();
+        $templateManager = new TemplateManager(
+            $this->quoteRepository,
+            $this->siteRepository,
+            $this->destinationRepository,
+            $this->applicationContext
+        );
 
         $message = $templateManager->getTemplateComputed(
             $template,

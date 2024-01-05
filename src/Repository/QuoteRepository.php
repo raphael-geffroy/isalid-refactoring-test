@@ -6,13 +6,11 @@ namespace App\Repository;
 
 
 use App\Entity\Quote;
-use App\Helper\SingletonTrait;
 use DateTime;
 use Faker\Factory;
 
 class QuoteRepository implements Repository
 {
-    use SingletonTrait;
 
     /**
      * @param int $id

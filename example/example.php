@@ -1,7 +1,11 @@
 <?php
 
+use App\Context\ApplicationContext;
 use App\Entity\Quote;
 use App\Entity\Template;
+use App\Repository\DestinationRepository;
+use App\Repository\QuoteRepository;
+use App\Repository\SiteRepository;
 use App\TemplateManager;
 use Faker\Factory;
 
@@ -21,7 +25,12 @@ Bien cordialement,
 
 L'équipe de Shipper
 ");
-$templateManager = new TemplateManager();
+$templateManager = new TemplateManager(
+    new QuoteRepository(),
+    new SiteRepository(),
+    new DestinationRepository(),
+    new ApplicationContext()
+);
 
 $message = $templateManager->getTemplateComputed(
     $template,
