@@ -27,3 +27,6 @@ Introduce autoloading thanks to composer and get rid of all the "require".
 Remove the singleton system to introduce Dependency injection
 ### 3.4 - Introduce Service Container
 Introduce Service Container (and autowiring) thanks to "symfony/dependency-injection"
+### 3.5 - Correct POO encapsulation
+Update code to respect POO encapsulation principle thanks to readonly classes
+

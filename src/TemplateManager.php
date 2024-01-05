@@ -29,11 +29,11 @@ readonly class TemplateManager
             throw new \RuntimeException('no tpl given');
         }
 
-        $replaced = clone($tpl);
-        $replaced->subject = $this->computeText($replaced->subject, $data);
-        $replaced->content = $this->computeText($replaced->content, $data);
-
-        return $replaced;
+        return new Template(
+            $tpl->id,
+            $this->computeText($tpl->subject, $data),
+            $this->computeText($tpl->content, $data)
+        );
     }
 
     private function computeText($text, array $data)

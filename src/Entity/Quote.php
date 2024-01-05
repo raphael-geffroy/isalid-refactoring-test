@@ -4,19 +4,14 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-class Quote
+readonly class Quote
 {
-    public $id;
-    public $siteId;
-    public $destinationId;
-    public $dateQuoted;
-
-    public function __construct($id, $siteId, $destinationId, $dateQuoted)
-    {
-        $this->id = $id;
-        $this->siteId = $siteId;
-        $this->destinationId = $destinationId;
-        $this->dateQuoted = $dateQuoted;
+    public function __construct(
+        public int $id,
+        public int $siteId,
+        public int $destinationId,
+        public string|\DateTimeInterface $dateQuoted
+    ){
     }
 
     public static function renderHtml(Quote $quote)

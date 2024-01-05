@@ -4,19 +4,13 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-class Destination
+readonly class Destination
 {
-    public $id;
-    public $countryName;
-    public $conjunction;
-    public $name;
-    public $computerName;
-
-    public function __construct($id, $countryName, $conjunction, $computerName)
-    {
-        $this->id = $id;
-        $this->countryName = $countryName;
-        $this->conjunction = $conjunction;
-        $this->computerName = $computerName;
+    public function __construct(
+        public int $id,
+        public string $countryName,
+        public string $conjunction,
+        public string $computerName
+    ){
     }
 }
