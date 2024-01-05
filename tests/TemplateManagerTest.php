@@ -10,6 +10,7 @@ use App\Entity\Template;
 use App\Repository\DestinationRepository;
 use App\Repository\SiteRepository;
 use App\TemplateManager;
+use App\ValueObject\TemplatedText;
 use Faker\Factory;
 use PHPUnit\Framework\TestCase;
 
@@ -51,8 +52,8 @@ class TemplateManagerTest extends TestCase
 
         $template = new Template(
             1,
-            'Votre livraison à [quote:destination_name]',
-            "
+            new TemplatedText('Votre livraison à [quote:destination_name]'),
+            new TemplatedText("
 Bonjour [user:first_name],
 
 Merci de nous avoir contacté pour votre livraison à [quote:destination_name].
@@ -60,7 +61,7 @@ Merci de nous avoir contacté pour votre livraison à [quote:destination_name].
 Bien cordialement,
 
 L'équipe de Shipper
-");
+"));
         $templateManager = new TemplateManager(
             $this->siteRepository,
             $this->destinationRepository,

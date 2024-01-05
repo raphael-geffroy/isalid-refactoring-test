@@ -13,4 +13,11 @@ readonly class User
         public string $email
     ){
     }
+
+    public function getFormattedFirstname(): string
+    {
+        return ucfirst(mb_strtolower($this->firstname));
+    }
+
+
 }

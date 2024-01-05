@@ -34,3 +34,8 @@ Update code to respect POO encapsulation principle thanks to readonly classes
 ### 4.1 - Algorithmic improvements
 Update the algorithmic using up-to-date code (new features provided by PHP earlier versions).
 Simplify the logic and improve the readability.
+### 4.2 - Enriching the domain
+I tried to follow the sandwich pattern technique to refactor the service.
+It implies to put the shared states on the extremities of the method to highlight the immutable domain (the domain logic)
+and finally try to enrich our domain (Aggregates, Entities, ValueObjects and if needed Domain services).
+In that end I created a TemplatedText ValueObject to encapsulate the logic (contains and replace).

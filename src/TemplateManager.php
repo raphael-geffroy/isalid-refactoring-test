@@ -10,6 +10,7 @@ use App\Entity\Template;
 use App\Entity\User;
 use App\Repository\DestinationRepository;
 use App\Repository\SiteRepository;
+use App\ValueObject\TemplatedText;
 
 readonly class TemplateManager
 {
@@ -36,42 +37,42 @@ readonly class TemplateManager
      *     user?: User,
      * } $data
      */
-    private function computeText(string $text, array $data): string
+    private function computeText(TemplatedText $text, array $data): TemplatedText
     {
         $quote = $data['quote'] ?? null;
+
+        $user = $data['user'] ?? null;
+        if (!$user instanceof User) {
+            $user = $this->applicationContext->getCurrentUser();
+        }
 
         if ($quote instanceof Quote) {
             $site = $this->siteRepository->getById($quote->siteId);
             $destination = $this->destinationRepository->getById($quote->destinationId);
 
-            if (str_contains($text, '[quote:summary_html]')) {
-                $text = str_replace('[quote:summary_html]', Quote::renderHtml($quote), $text);
+            if ($text->contains('[quote:summary_html]')) {
+                $text->replaceAll('[quote:summary_html]', Quote::renderHtml($quote));
             }
-            if (str_contains($text, '[quote:summary]')) {
-                $text = str_replace('[quote:summary]', Quote::renderText($quote), $text);
-            }
-
-            if (str_contains($text, '[quote:destination_name]')) {
-                $text = str_replace('[quote:destination_name]', $destination->countryName, $text);
+            if ($text->contains('[quote:summary]')) {
+                $text->replaceAll('[quote:summary]', Quote::renderText($quote));
             }
 
-            if (str_contains($text, '[quote:destination_link]')) {
+            if ($text->contains('[quote:destination_name]')) {
+                $text->replaceAll('[quote:destination_name]', $destination->countryName);
+            }
+
+            if ($text->contains('[quote:destination_link]')) {
                 $link = sprintf('%s/%s/quote/%d', $site->url, $destination->countryName, $quote->id);
-                $text = str_replace('[quote:destination_link]', $link, $text);
+                $text->replaceAll('[quote:destination_link]', $link);
             }
         }
 
-        if(str_contains($text, '[quote:destination_link]')){
-            $text = str_replace('[quote:destination_link]', '', $text);
+        if ($text->contains('[quote:destination_link]')) {
+            $text->replaceAll('[quote:destination_link]', '');
         }
 
-        $user = $data['user'] ?? null;
-        if(!$user instanceof User){
-            $user = $this->applicationContext->getCurrentUser();
-        }
-
-        if(str_contains($text, '[user:first_name]')) {
-            $text = str_replace('[user:first_name]', ucfirst(mb_strtolower($user->firstname)), $text);
+        if ($text->contains('[user:first_name]')) {
+            $text->replaceAll('[user:first_name]', $user->getFormattedFirstname());
         }
 
         return $text;

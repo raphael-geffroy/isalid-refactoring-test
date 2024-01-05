@@ -4,6 +4,7 @@ use App\Entity\Quote;
 use App\Entity\Template;
 use App\Kernel;
 use App\TemplateManager;
+use App\ValueObject\TemplatedText;
 use Faker\Factory;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -16,8 +17,8 @@ $faker = Factory::create();
 
 $template = new Template(
     1,
-    'Votre livraison à [quote:destination_name]',
-    "
+    new TemplatedText('Votre livraison à [quote:destination_name]'),
+    new TemplatedText("
 Bonjour [user:first_name],
 
 Merci de nous avoir contacté pour votre livraison à [quote:destination_name].
@@ -25,7 +26,7 @@ Merci de nous avoir contacté pour votre livraison à [quote:destination_name].
 Bien cordialement,
 
 L'équipe de Shipper
-");
+"));
 $templateManager = $container->get(TemplateManager::class);
 
 $message = $templateManager->getTemplateComputed(

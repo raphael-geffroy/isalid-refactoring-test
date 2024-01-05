@@ -11,6 +11,7 @@ use App\Entity\User;
 use App\Repository\DestinationRepository;
 use App\Repository\SiteRepository;
 use App\TemplateManager;
+use App\ValueObject\TemplatedText;
 use ApprovalTests\CombinationApprovals;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
@@ -81,7 +82,7 @@ EOT;
             $context['user'] = $user;
         }
 
-        $template = new Template(self::TEMPLATE_ID, self::TEMPLATE_SUBJECT, $content);
+        $template = new Template(self::TEMPLATE_ID, new TemplatedText(self::TEMPLATE_SUBJECT), new TemplatedText($content));
 
         $result = $templateManager->getTemplateComputed($template, $context);
 
