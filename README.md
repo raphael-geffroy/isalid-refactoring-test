@@ -25,3 +25,5 @@ Update the approval tests snapshots as the faker's seed did not survive the libr
 Introduce autoloading thanks to composer and get rid of all the "require".
 ### 3.3 - Replace Singleton by DI
 Remove the singleton system to introduce Dependency injection
+### 3.4 - Introduce Service Container
+Introduce Service Container (and autowiring) thanks to "symfony/dependency-injection"

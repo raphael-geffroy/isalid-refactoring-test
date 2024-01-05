@@ -18,7 +18,10 @@
     "require": {
         "php": "8.3.*",
         "fakerphp/faker": "^1.23",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "symfony/dependency-injection": "^7.0",
+        "symfony/yaml": "^7.0",
+        "symfony/config": "^7.0"
     },
     "require-dev": {
         "approvals/approval-tests": "dev-dev-rollback-to56",

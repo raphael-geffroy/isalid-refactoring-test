@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AppTest;
 
-
 use App\Context\ApplicationContext;
 use App\Entity\Quote;
 use App\Entity\Template;

@@ -1,15 +1,16 @@
 <?php
 
-use App\Context\ApplicationContext;
 use App\Entity\Quote;
 use App\Entity\Template;
-use App\Repository\DestinationRepository;
-use App\Repository\QuoteRepository;
-use App\Repository\SiteRepository;
+use App\Kernel;
 use App\TemplateManager;
 use Faker\Factory;
 
 require_once __DIR__ . '/../vendor/autoload.php';
+
+$kernel = new Kernel();
+$kernel->boot();
+$container = $kernel->getContainer();
 
 $faker = Factory::create();
 
@@ -25,12 +26,7 @@ Bien cordialement,
 
 L'équipe de Shipper
 ");
-$templateManager = new TemplateManager(
-    new QuoteRepository(),
-    new SiteRepository(),
-    new DestinationRepository(),
-    new ApplicationContext()
-);
+$templateManager = $container->get(TemplateManager::class);
 
 $message = $templateManager->getTemplateComputed(
     $template,
