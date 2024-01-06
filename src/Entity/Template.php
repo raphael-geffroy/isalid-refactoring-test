@@ -12,7 +12,6 @@ readonly class Template
         public int    $id,
         public TemplatedText $subject,
         public TemplatedText $content,
-    )
-    {
+    ) {
     }
 }

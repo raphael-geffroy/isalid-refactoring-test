@@ -17,7 +17,7 @@ class Kernel
     {
         $this->container = new ContainerBuilder();
 
-        $yamlFileLoader = new YamlFileLoader($this->container, new FileLocator(dirname(__FILE__,2).'/config'));
+        $yamlFileLoader = new YamlFileLoader($this->container, new FileLocator(dirname(__FILE__, 2).'/config'));
         $yamlFileLoader->load('services.yaml');
 
         $this->container->compile();

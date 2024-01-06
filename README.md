@@ -47,3 +47,6 @@ in the Symfony codebase for Transports (Notifier) and ChainEncoder (Serializer).
 
 ## 5 - Remove the Approval tests
 The refactor is complete and the snapshot is still valid we can now remove the approval tests and be confident on our refactoring.
+
+## 6 - Static analysis
+I added Php cs-fixer and phpstan to standardize the code quality.

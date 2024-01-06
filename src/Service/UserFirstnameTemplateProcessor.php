@@ -8,11 +8,9 @@ use App\ValueObject\TemplatedText;
 
 readonly class UserFirstnameTemplateProcessor implements TemplateProcessorInterface
 {
-
     public function __construct(
         private ApplicationContext $applicationContext,
-    )
-    {
+    ) {
     }
 
     public function process(TemplatedText $text, array $context): void

@@ -8,7 +8,7 @@ class TemplatedText implements \Stringable
 {
     public function __construct(
         private string $text,
-    ){
+    ) {
     }
 
     public function replaceAll(string $placeholder, string $value): void

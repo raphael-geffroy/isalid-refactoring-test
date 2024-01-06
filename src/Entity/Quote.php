@@ -11,15 +11,15 @@ readonly class Quote
         public int $siteId,
         public int $destinationId,
         public string|\DateTimeInterface $dateQuoted
-    ){
+    ) {
     }
 
-    public static function renderHtml(Quote $quote)
+    public static function renderHtml(Quote $quote): string
     {
         return '<p>' . $quote->id . '</p>';
     }
 
-    public static function renderText(Quote $quote)
+    public static function renderText(Quote $quote): string
     {
         return (string) $quote->id;
     }

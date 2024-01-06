@@ -7,14 +7,12 @@ namespace App\Repository;
 use App\Entity\Destination;
 use Faker\Factory;
 
+/**
+ * @implements Repository<Destination>
+ */
 class DestinationRepository implements Repository
 {
-    /**
-     * @param int $id
-     *
-     * @return Destination
-     */
-    public function getById($id)
+    public function getById(int $id): Destination
     {
         // DO NOT MODIFY THIS METHOD
         $generator    = Factory::create();

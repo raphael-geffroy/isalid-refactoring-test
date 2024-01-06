@@ -12,8 +12,7 @@ readonly class QuoteDestinationNameTemplateProcessor implements TemplateProcesso
 {
     public function __construct(
         private DestinationRepository $destinationRepository,
-    )
-    {
+    ) {
     }
 
     /**

@@ -14,8 +14,7 @@ readonly class QuoteDestinationLinkTemplateProcessor implements TemplateProcesso
     public function __construct(
         private SiteRepository $siteRepository,
         private DestinationRepository $destinationRepository,
-    )
-    {
+    ) {
     }
 
     public function process(TemplatedText $text, array $context): void

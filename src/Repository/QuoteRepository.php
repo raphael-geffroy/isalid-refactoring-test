@@ -4,20 +4,16 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-
 use App\Entity\Quote;
 use DateTime;
 use Faker\Factory;
 
+/**
+ * @implements Repository<Quote>
+ */
 class QuoteRepository implements Repository
 {
-
-    /**
-     * @param int $id
-     *
-     * @return Quote
-     */
-    public function getById($id)
+    public function getById(int $id): Quote
     {
         // DO NOT MODIFY THIS METHOD
         $generator = Factory::create();

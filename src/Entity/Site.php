@@ -9,6 +9,6 @@ readonly class Site
     public function __construct(
         public int $id,
         public string $url
-    ){
+    ) {
     }
 }

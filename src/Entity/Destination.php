@@ -11,6 +11,6 @@ readonly class Destination
         public string $countryName,
         public string $conjunction,
         public string $computerName
-    ){
+    ) {
     }
 }

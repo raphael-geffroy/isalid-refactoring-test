@@ -11,7 +11,7 @@ readonly class User
         public string $firstname,
         public string $lastname,
         public string $email
-    ){
+    ) {
     }
 
     public function getFormattedFirstname(): string
