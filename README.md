@@ -55,3 +55,4 @@ I added Php cs-fixer and phpstan to standardize the code quality.
 I could have added a CI with GitHub actions including PhpUnit, PhpStan, Php CS-Fixer and some linting.
 I didn't add any new feature but validation could be interesting for the context data.
 We could validate the final template to ensure there is no more placeholders.
+And check for unused properties and methods inside the entities.
