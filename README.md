@@ -50,3 +50,8 @@ The refactor is complete and the snapshot is still valid we can now remove the a
 
 ## 6 - Static analysis
 I added Php cs-fixer and phpstan to standardize the code quality.
+
+## # - What I didn't do
+I could have added a CI with GitHub actions including PhpUnit, PhpStan, Php CS-Fixer and some linting.
+I didn't add any new feature but validation could be interesting for the context data.
+We could validate the final template to ensure there is no more placeholders.
