@@ -44,3 +44,6 @@ I created a system easily extensible to handle placeholder replacements in a Tem
 You just have to create an implementation of the App\Service\TemplateProcessorInterface.
 The designed solution is a mix of Chain of Responsibility and Strategy patterns. You can find solutions like this one
 in the Symfony codebase for Transports (Notifier) and ChainEncoder (Serializer).
+
+## 5 - Remove the Approval tests
+The refactor is complete and the snapshot is still valid we can now remove the approval tests and be confident on our refactoring.

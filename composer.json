@@ -9,12 +9,6 @@
             "AppTest\\": "tests/"
         }
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/ilyaguy/ApprovalTests.php.git"
-        }
-    ],
     "require": {
         "php": "8.3.*",
         "fakerphp/faker": "^1.23",
@@ -24,7 +18,6 @@
         "symfony/config": "^7.0"
     },
     "require-dev": {
-        "approvals/approval-tests": "dev-dev-rollback-to56",
         "phpunit/phpunit": "^10.5"
     }
 }
